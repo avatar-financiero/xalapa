@@ -89,7 +89,7 @@ async function pintar(r) {
   document.getElementById('msg').textContent = r.nuevo
     ? 'Tu ID de embajador es ' + r.id + '. Cada persona que se registre con tu QR cuenta para ti.'
     : 'Ya estabas registrado (' + r.id + '). Aquí tienes de nuevo tu invitación.';
-  const t = 'Pensé en ti 🙌 Te invito al taller Avatar Financiero en Xalapa, del 22 al 24 de enero 2027. Regístrate aquí: ' + r.link;
+  const t = 'Pensé en ti 🙌 Hay experiencias que te transforman, y Avatar fue una de ellas. Hoy quiero regalarte la oportunidad de vivir la tuya: taller Avatar Financiero, Xalapa, 22 al 24 de enero 2027. Regístrate aquí: ' + r.link;
   document.getElementById('wa').href = 'https://wa.me/?text=' + encodeURIComponent(t);
   document.getElementById('paso1').classList.add('oculto');
   document.getElementById('paso2').classList.remove('oculto');
