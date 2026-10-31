@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avatar Financiero · Xalapa · Registro</title>
+<meta name="description" content="Regístrate al taller Avatar Financiero en Xalapa, del 22 al 24 de enero 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+<script src="config.js"></script>
+<script src="api.js"></script>
+</head>
+<body><div class="wrap">
+ <div id="paso1">
+  <div class="chip oculto" id="chip"></div>
+  <h1>Avatar <span>Financiero</span></h1>
+  <p class="sub">Xalapa, Veracruz · 22 al 24 de enero 2027.<br>Regístrate y conoce todos los detalles del taller.</p>
+  <form id="f">
+   <label for="nombre">Nombre completo</label><input id="nombre" name="nombre" required maxlength="60" autocomplete="name">
+   <label for="whatsapp">WhatsApp (10 dígitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" required autocomplete="tel">
+   <label for="correo">Correo</label><input id="correo" name="correo" type="email" required autocomplete="email">
+   <label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" required>
+   <button class="btn" id="b">Registrarme</button>
+   <div class="err" id="err"></div>
+  </form>
+ </div>
+ <div id="paso2" class="oculto">
+  <h1>¡Registro <span>listo!</span></h1>
+  <p class="sub" id="msg">Ya tienes tu lugar en la lista. Consulta la información completa y aparta tu lugar.</p>
+  <a class="btn" id="ir">Ver información y apartar mi lugar</a>
+ </div>
+</div>
+<script>
+const ref = (new URLSearchParams(location.search).get('ref') || '').trim();
+if (ref) apiNombreEmbajador(ref).then(n => {
+  if (!n) return;
+  const c = document.getElementById('chip'); c.textContent = 'Te invita: ' + n; c.classList.remove('oculto');
+});
+
+document.getElementById('f').addEventListener('submit', async e => {
+  e.preventDefault();
+  const b = document.getElementById('b'), err = document.getElementById('err');
+  b.disabled = true; b.textContent = 'Registrando...'; err.textContent = '';
+  const datos = Object.fromEntries(new FormData(e.target)); datos.tipo = 'invitado'; datos.ref = ref;
+  const r = await apiPost(datos);
+  if (!r.ok) { err.textContent = r.error; b.disabled = false; b.textContent = 'Registrarme'; return; }
+  if (r.repetido) document.getElementById('msg').textContent = 'Este WhatsApp ya estaba registrado. Puedes consultar la información aquí.';
+  document.getElementById('ir').href = r.landing || window.AVATAR.landing;
+  document.getElementById('paso1').classList.add('oculto');
+  document.getElementById('paso2').classList.remove('oculto');
+});
+</script>
+</body></html>
