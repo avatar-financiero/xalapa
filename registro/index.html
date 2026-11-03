@@ -18,9 +18,9 @@
   <p class="sub">Xalapa, Veracruz · 22 al 24 de enero 2027.<br>Regístrate y conoce todos los detalles del taller.</p>
   <form id="f">
    <label for="nombre">Nombre completo</label><input id="nombre" name="nombre" required maxlength="60" autocomplete="name">
-   <label for="whatsapp">WhatsApp (10 dígitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" required autocomplete="tel">
-   <label for="correo">Correo</label><input id="correo" name="correo" type="email" required autocomplete="email">
-   <label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" required>
+   <label for="whatsapp">WhatsApp (10 dígitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" maxlength="15" required autocomplete="tel">
+   <label for="correo">Correo</label><input id="correo" name="correo" type="email" maxlength="100" required autocomplete="email">
+   <label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" maxlength="60" required>
    <button class="btn" id="b">Registrarme</button>
    <div class="err" id="err"></div>
   </form>

@@ -18,9 +18,9 @@
   <p class="sub">Regístrate y descarga tu invitación personalizada <b>Pensé en ti</b>. Xalapa · 22 al 24 de enero 2027.</p>
   <form id="f">
    <label for="nombre">Nombre completo</label><input id="nombre" name="nombre" required maxlength="60" autocomplete="name">
-   <label for="whatsapp">WhatsApp (10 dígitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" required autocomplete="tel">
-   <label for="correo">Correo</label><input id="correo" name="correo" type="email" required autocomplete="email">
-   <label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" required>
+   <label for="whatsapp">WhatsApp (10 dígitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" maxlength="15" required autocomplete="tel">
+   <label for="correo">Correo</label><input id="correo" name="correo" type="email" maxlength="100" required autocomplete="email">
+   <label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" maxlength="60" required>
    <label for="asesor">¿Eres asesor Axen?</label>
    <select id="asesor" name="asesor" required><option value="">Selecciona</option><option>Sí</option><option>No</option></select>
    <button class="btn" id="b">Generar mi invitación</button>
