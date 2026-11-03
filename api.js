@@ -22,7 +22,7 @@ async function apiPost(datos, intento) {
   }
 }
 
-async function apiNombreEmbajador(ref) {
+async function apiNombreAliado(ref) {
   try {
     const r = await fetch(window.AVATAR.api + '?api=emb&ref=' + encodeURIComponent(ref));
     const j = await r.json();

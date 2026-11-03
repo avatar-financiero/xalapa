@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conviértete en Aliado Avatar · Xalapa</title>
+<meta name="description" content="Conviértete en Aliado Avatar del taller Avatar Financiero Xalapa y descarga tu invitación personalizada.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilos.css">
+<script src="../config.js"></script>
+<script src="../api.js"></script>
+<script src="../qrcode.js"></script>
+</head>
+<body><div class="wrap">
+ <div id="paso1">
+  <h1>Conviértete en<br><span>Aliado Avatar</span></h1>
+  <p class="sub">Regístrate y descarga tu invitación personalizada <b>Pensé en ti</b>. Xalapa · 22 al 24 de enero 2027.</p>
+  <form id="f">
+   <label for="nombre">Nombre completo</label><input id="nombre" name="nombre" required maxlength="60" autocomplete="name">
+   <label for="whatsapp">WhatsApp (10 dígitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" required autocomplete="tel">
+   <label for="correo">Correo</label><input id="correo" name="correo" type="email" required autocomplete="email">
+   <label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" required>
+   <label for="asesor">¿Eres asesor Axen?</label>
+   <select id="asesor" name="asesor" required><option value="">Selecciona</option><option>Sí</option><option>No</option></select>
+   <button class="btn" id="b">Generar mi invitación</button>
+   <div class="err" id="err"></div>
+  </form>
+ </div>
+ <div id="paso2" class="oculto">
+  <h1>Listo, <span id="nom"></span></h1>
+  <p class="sub" id="msg"></p>
+  <img class="inv" id="img" alt="Tu invitación">
+  <a class="btn" id="desc" download="Avatar_Xalapa.png">Descargar invitación</a>
+  <a class="btn sec" id="wa" target="_blank" rel="noopener">Compartir por WhatsApp</a>
+  <p class="nota">Si no se descarga, mantén presionada la imagen y elige "Guardar imagen".</p>
+ </div>
+</div>
+<script>
+const CFG = window.AVATAR, W = 1080, H = 1350;
+const arte = new Image(); arte.src = "../arte.jpg";
+const arteListo = new Promise(r => { arte.onload = () => r(true); arte.onerror = () => r(false); });
+
+document.getElementById('f').addEventListener('submit', async e => {
+  e.preventDefault();
+  const b = document.getElementById('b'), err = document.getElementById('err');
+  b.disabled = true; b.textContent = 'Generando...'; err.textContent = '';
+  const datos = Object.fromEntries(new FormData(e.target)); datos.tipo = 'embajador';
+  const r = await apiPost(datos);
+  if (!r.ok) { err.textContent = r.error; b.disabled = false; b.textContent = 'Generar mi invitación'; return; }
+  await pintar(r);
+});
+
+function qr(t) {
+  const q = qrcode(0, 'H'); q.addData(t); q.make();
+  const n = q.getModuleCount(), m = Math.ceil(600 / n), c = document.createElement('canvas');
+  c.width = c.height = n * m;
+  const x = c.getContext('2d'); x.fillStyle = '#FFFFFF'; x.fillRect(0, 0, c.width, c.height); x.fillStyle = '#0A0F1E';
+  for (let r = 0; r < n; r++) for (let k = 0; k < n; k++) if (q.isDark(r, k)) x.fillRect(k * m, r * m, m, m);
+  return c;
+}
+function nombre(x, n) {
+  const c = CFG.nombre; n = n.toUpperCase(); let s = 52;
+  do { x.font = s + 'px "Archivo Black"'; s -= 2; } while (x.measureText(n).width > c.ancho && s > 24);
+  x.fillStyle = c.color; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.fillText(n, c.x, c.y);
+}
+function fondoProvisional(x) {
+  const g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#0A0F1E'); g.addColorStop(1, '#141C30');
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.textAlign = 'center'; x.fillStyle = '#FFFFFF'; x.font = '110px "Archivo Black"'; x.fillText('Pensé en ti', W / 2, 230);
+  x.fillStyle = '#FFFFFF'; x.font = '700 40px "Open Sans"'; x.fillText('Te invita:', 230, 1150);
+  x.fillStyle = '#F39325'; x.font = '600 34px "Open Sans"'; x.fillText(CFG.sede + ' · ' + CFG.fechas, W / 2, 1270);
+}
+
+async function pintar(r) {
+  await document.fonts.ready;
+  const ok = await arteListo;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const x = cv.getContext('2d');
+  if (ok) x.drawImage(arte, 0, 0, W, H); else fondoProvisional(x);
+  const q = CFG.qr, p = 30;
+  x.fillStyle = '#FFFFFF'; x.fillRect(q.x - p, q.y - p, q.size + 2 * p, q.size + 2 * p);
+  x.imageSmoothingEnabled = false; x.drawImage(qr(r.link), q.x, q.y, q.size, q.size); x.imageSmoothingEnabled = true;
+  nombre(x, r.nombre);
+  const url = cv.toDataURL('image/png');
+  document.getElementById('img').src = url;
+  document.getElementById('desc').href = url;
+  document.getElementById('nom').textContent = r.nombre.split(' ')[0];
+  document.getElementById('msg').textContent = r.nuevo
+    ? 'Tu ID de Aliado Avatar es ' + r.id + '. Cada persona que se registre con tu QR cuenta para ti.'
+    : 'Ya estabas registrado (' + r.id + '). Aquí tienes de nuevo tu invitación.';
+  const t = 'Pensé en ti 🙌 Hay experiencias que te transforman, y Avatar fue una de ellas. Hoy quiero regalarte la oportunidad de vivir la tuya: taller Avatar Financiero, Xalapa, 22 al 24 de enero 2027. Regístrate aquí: ' + r.link;
+  document.getElementById('wa').href = 'https://wa.me/?text=' + encodeURIComponent(t);
+  document.getElementById('paso1').classList.add('oculto');
+  document.getElementById('paso2').classList.remove('oculto');
+  window.scrollTo(0, 0);
+}
+</script>
+</body></html>
