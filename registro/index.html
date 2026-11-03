@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Avatar Financiero · Xalapa · Registro</title>
-<meta name="description" content="Regístrate al taller Avatar Financiero en Xalapa, del 22 al 24 de enero 2027.">
+<title>Avatar Financiero &#xb7; Xalapa &#xb7; Registro</title>
+<meta name="description" content="Reg&#xed;strate al taller Avatar Financiero en Xalapa, del 22 al 24 de enero 2027.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../estilos.css">
@@ -15,10 +15,10 @@
  <div id="paso1">
   <div class="chip oculto" id="chip"></div>
   <h1>Avatar <span>Financiero</span></h1>
-  <p class="sub">Xalapa, Veracruz · 22 al 24 de enero 2027.<br>Regístrate y conoce todos los detalles del taller.</p>
+  <p class="sub">Xalapa, Veracruz &#xb7; 22 al 24 de enero 2027.<br>Reg&#xed;strate y conoce todos los detalles del taller.</p>
   <form id="f">
    <label for="nombre">Nombre completo</label><input id="nombre" name="nombre" required maxlength="60" autocomplete="name">
-   <label for="whatsapp">WhatsApp (10 dígitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" maxlength="15" required autocomplete="tel">
+   <label for="whatsapp">WhatsApp (10 d&#xed;gitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" maxlength="15" required autocomplete="tel">
    <label for="correo">Correo</label><input id="correo" name="correo" type="email" maxlength="100" required autocomplete="email">
    <label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" maxlength="60" required>
    <button class="btn" id="b">Registrarme</button>
@@ -26,9 +26,9 @@
   </form>
  </div>
  <div id="paso2" class="oculto">
-  <h1>¡Registro <span>listo!</span></h1>
-  <p class="sub" id="msg">Ya tienes tu lugar en la lista. Consulta la información completa y aparta tu lugar.</p>
-  <a class="btn" id="ir">Ver información y apartar mi lugar</a>
+  <h1>&#xa1;Registro <span>listo!</span></h1>
+  <p class="sub" id="msg">Ya tienes tu lugar en la lista. Consulta la informaci&#xf3;n completa y aparta tu lugar.</p>
+  <a class="btn" id="ir">Ver informaci&#xf3;n y apartar mi lugar</a>
  </div>
 </div>
 <script>
@@ -45,7 +45,7 @@ document.getElementById('f').addEventListener('submit', async e => {
   const datos = Object.fromEntries(new FormData(e.target)); datos.tipo = 'invitado'; datos.ref = ref;
   const r = await apiPost(datos);
   if (!r.ok) { err.textContent = r.error; b.disabled = false; b.textContent = 'Registrarme'; return; }
-  if (r.repetido) document.getElementById('msg').textContent = 'Este WhatsApp ya estaba registrado. Puedes consultar la información aquí.';
+  if (r.repetido) document.getElementById('msg').textContent = 'Este WhatsApp ya estaba registrado. Puedes consultar la informaci\u00f3n aqu\u00ed.';
   document.getElementById('ir').href = r.landing || window.AVATAR.landing;
   document.getElementById('paso1').classList.add('oculto');
   document.getElementById('paso2').classList.remove('oculto');

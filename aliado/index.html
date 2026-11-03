@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Conviértete en Aliado Avatar · Xalapa</title>
-<meta name="description" content="Conviértete en Aliado Avatar del taller Avatar Financiero Xalapa y descarga tu invitación personalizada.">
+<title>Convi&#xe9;rtete en Aliado Avatar &#xb7; Xalapa</title>
+<meta name="description" content="Convi&#xe9;rtete en Aliado Avatar del taller Avatar Financiero Xalapa y descarga tu invitaci&#xf3;n personalizada.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../estilos.css">
@@ -14,26 +14,26 @@
 </head>
 <body><div class="wrap">
  <div id="paso1">
-  <h1>Conviértete en<br><span>Aliado Avatar</span></h1>
-  <p class="sub">Regístrate y descarga tu invitación personalizada <b>Pensé en ti</b>. Xalapa · 22 al 24 de enero 2027.</p>
+  <h1>Convi&#xe9;rtete en<br><span>Aliado Avatar</span></h1>
+  <p class="sub">Reg&#xed;strate y descarga tu invitaci&#xf3;n personalizada <b>Pens&#xe9; en ti</b>. Xalapa &#xb7; 22 al 24 de enero 2027.</p>
   <form id="f">
    <label for="nombre">Nombre completo</label><input id="nombre" name="nombre" required maxlength="60" autocomplete="name">
-   <label for="whatsapp">WhatsApp (10 dígitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" maxlength="15" required autocomplete="tel">
+   <label for="whatsapp">WhatsApp (10 d&#xed;gitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" maxlength="15" required autocomplete="tel">
    <label for="correo">Correo</label><input id="correo" name="correo" type="email" maxlength="100" required autocomplete="email">
    <label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" maxlength="60" required>
-   <label for="asesor">¿Eres asesor Axen?</label>
-   <select id="asesor" name="asesor" required><option value="">Selecciona</option><option>Sí</option><option>No</option></select>
-   <button class="btn" id="b">Generar mi invitación</button>
+   <label for="asesor">&#xbf;Eres asesor Axen?</label>
+   <select id="asesor" name="asesor" required><option value="">Selecciona</option><option>S&#xed;</option><option>No</option></select>
+   <button class="btn" id="b">Generar mi invitaci&#xf3;n</button>
    <div class="err" id="err"></div>
   </form>
  </div>
  <div id="paso2" class="oculto">
   <h1>Listo, <span id="nom"></span></h1>
   <p class="sub" id="msg"></p>
-  <img class="inv" id="img" alt="Tu invitación">
-  <a class="btn" id="desc" download="Avatar_Xalapa.png">Descargar invitación</a>
+  <img class="inv" id="img" alt="Tu invitaci&#xf3;n">
+  <a class="btn" id="desc" download="Avatar_Xalapa.png">Descargar invitaci&#xf3;n</a>
   <a class="btn sec" id="wa" target="_blank" rel="noopener">Compartir por WhatsApp</a>
-  <p class="nota">Si no se descarga, mantén presionada la imagen y elige "Guardar imagen".</p>
+  <p class="nota">Si no se descarga, mant&#xe9;n presionada la imagen y elige "Guardar imagen".</p>
  </div>
 </div>
 <script>
@@ -47,7 +47,7 @@ document.getElementById('f').addEventListener('submit', async e => {
   b.disabled = true; b.textContent = 'Generando...'; err.textContent = '';
   const datos = Object.fromEntries(new FormData(e.target)); datos.tipo = 'embajador';
   const r = await apiPost(datos);
-  if (!r.ok) { err.textContent = r.error; b.disabled = false; b.textContent = 'Generar mi invitación'; return; }
+  if (!r.ok) { err.textContent = r.error; b.disabled = false; b.textContent = 'Generar mi invitaci\u00f3n'; return; }
   await pintar(r);
 });
 
@@ -67,9 +67,9 @@ function nombre(x, n) {
 function fondoProvisional(x) {
   const g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#0A0F1E'); g.addColorStop(1, '#141C30');
   x.fillStyle = g; x.fillRect(0, 0, W, H);
-  x.textAlign = 'center'; x.fillStyle = '#FFFFFF'; x.font = '110px "Archivo Black"'; x.fillText('Pensé en ti', W / 2, 230);
+  x.textAlign = 'center'; x.fillStyle = '#FFFFFF'; x.font = '110px "Archivo Black"'; x.fillText('Pens\u00e9 en ti', W / 2, 230);
   x.fillStyle = '#FFFFFF'; x.font = '700 40px "Open Sans"'; x.fillText('Te invita:', 230, 1150);
-  x.fillStyle = '#F39325'; x.font = '600 34px "Open Sans"'; x.fillText(CFG.sede + ' · ' + CFG.fechas, W / 2, 1270);
+  x.fillStyle = '#F39325'; x.font = '600 34px "Open Sans"'; x.fillText(CFG.sede + ' \u00b7 ' + CFG.fechas, W / 2, 1270);
 }
 
 async function pintar(r) {
@@ -88,8 +88,8 @@ async function pintar(r) {
   document.getElementById('nom').textContent = r.nombre.split(' ')[0];
   document.getElementById('msg').textContent = r.nuevo
     ? 'Tu ID de Aliado Avatar es ' + r.id + '. Cada persona que se registre con tu QR cuenta para ti.'
-    : 'Ya estabas registrado (' + r.id + '). Aquí tienes de nuevo tu invitación.';
-  const t = 'Pensé en ti 🙌 Hay experiencias que te transforman, y Avatar fue una de ellas. Hoy quiero regalarte la oportunidad de vivir la tuya: taller Avatar Financiero, Xalapa, 22 al 24 de enero 2027. Regístrate aquí: ' + r.link;
+    : 'Ya estabas registrado (' + r.id + '). Aqu\u00ed tienes de nuevo tu invitaci\u00f3n.';
+  const t = 'Pens\u00e9 en ti \u{1f64c} Hay experiencias que te transforman, y Avatar fue una de ellas. Hoy quiero regalarte la oportunidad de vivir la tuya: taller Avatar Financiero, Xalapa, 22 al 24 de enero 2027. Reg\u00edstrate aqu\u00ed: ' + r.link;
   document.getElementById('wa').href = 'https://wa.me/?text=' + encodeURIComponent(t);
   document.getElementById('paso1').classList.add('oculto');
   document.getElementById('paso2').classList.remove('oculto');

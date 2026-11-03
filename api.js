@@ -1,5 +1,5 @@
-// Envía datos al Apps Script sin pasar por la pantalla de cuentas de Google.
-// text/plain evita la verificación previa (CORS preflight) que Apps Script no soporta.
+// Env\u00eda datos al Apps Script sin pasar por la pantalla de cuentas de Google.
+// text/plain evita la verificaci\u00f3n previa (CORS preflight) que Apps Script no soporta.
 async function apiPost(datos, intento) {
   intento = intento || 1;
   try {
@@ -18,7 +18,7 @@ async function apiPost(datos, intento) {
       await new Promise(res => setTimeout(res, 1500 + Math.random() * 3000));
       return apiPost(datos, intento + 1);
     }
-    return { ok: false, error: 'No pudimos completar tu registro. Revisa tu conexión e intenta de nuevo.' };
+    return { ok: false, error: 'No pudimos completar tu registro. Revisa tu conexi\u00f3n e intenta de nuevo.' };
   }
 }
 
