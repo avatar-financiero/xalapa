@@ -1,8 +1,6 @@
-# Pensé en ti · Avatar Financiero Xalapa
+# Avatar Financiero · Xalapa
 
-Registro de Aliados Avatar (`aliado/`) e invitados (`registro/`). `index.html` y `registro.html` en la raíz redirigen a esas rutas para no romper links ya compartidos del taller Avatar Financiero · Xalapa, 22 al 24 de enero 2027.
+El sitio vive en **https://avatar.danteeludier.com** (hosting propio).
 
-- Los datos se guardan en el Google Sheet "Avatar Financiero · Xalapa · Registros" a través de Google Apps Script.
-- `config.js`: URL del Apps Script, landing y posición del QR y del nombre sobre `arte.jpg`.
-- `arte.jpg`: arte de Mercadotecnia (1080×1350). Para cambiarlo, reemplaza el archivo con el mismo nombre.
-- `qrcode.js`: librería qrcode-generator (MIT, Kazuhiko Arase).
+- `main`: solo redirecciones desde los links antiguos de GitHub al dominio, conservando el `?ref=` del aliado.
+- `sitio`: código fuente del sitio (lo que se entrega a tech para publicar).
