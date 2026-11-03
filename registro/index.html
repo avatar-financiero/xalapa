@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../estilos.css">
 <script src="../config.js"></script>
 <script src="../api.js"></script>
+<script src="../reserva.js"></script>
 </head>
 <body><div class="wrap">
  <div id="paso1">
@@ -28,13 +29,15 @@
  <div id="paso2" class="oculto">
   <h1>&#xa1;Registro <span>listo!</span></h1>
   <p class="sub" id="msg">Ya tienes tu lugar en la lista. Consulta la informaci&#xf3;n completa y aparta tu lugar.</p>
-  <a class="btn" id="ir">Ver informaci&#xf3;n y apartar mi lugar</a>
+  <a class="btn js-reservar" id="res">Apartar mi lugar por WhatsApp</a>
+  <a class="btn sec" id="ir">Ver informaci&#xf3;n del taller</a>
  </div>
 </div>
 <script>
 const ref = (new URLSearchParams(location.search).get('ref') || '').trim();
+let nomAliado = '';
 if (ref) apiNombreAliado(ref).then(n => {
-  if (!n) return;
+  if (!n) return; nomAliado = n;
   const c = document.getElementById('chip'); c.textContent = 'Te invita: ' + n; c.classList.remove('oculto');
 });
 
@@ -46,6 +49,8 @@ document.getElementById('f').addEventListener('submit', async e => {
   const r = await apiPost(datos);
   if (!r.ok) { err.textContent = r.error; b.disabled = false; b.textContent = 'Registrarme'; return; }
   if (r.repetido) document.getElementById('msg').textContent = 'Este WhatsApp ya estaba registrado. Puedes consultar la informaci\u00f3n aqu\u00ed.';
+  try { localStorage.setItem('avatar_reg', JSON.stringify({ n: datos.nombre.trim().replace(/\s+/g, ' '), a: nomAliado, r: ref })); } catch (x) {}
+  window.AvatarReserva.aplicar();
   document.getElementById('ir').href = r.landing || window.AVATAR.landing;
   document.getElementById('paso1').classList.add('oculto');
   document.getElementById('paso2').classList.remove('oculto');
