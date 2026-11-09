@@ -1,6 +1,7 @@
 # Avatar Financiero · Xalapa
 
-El sitio vive en **https://avatar.danteeludier.com** (hosting propio).
+Sitio principal: **https://avatar.danteeludier.com** (hosting propio).
+Respaldo activo: **https://avatar-financiero.github.io/xalapa/** (mismo sitio, mismos registros en el Google Sheet).
 
-- `main`: solo redirecciones desde los links antiguos de GitHub al dominio, conservando el `?ref=` del aliado.
-- `sitio`: código fuente del sitio (lo que se entrega a tech para publicar).
+- `main`: copia completa del sitio (respaldo).
+- `sitio`: código fuente que se entrega a tech.
