@@ -1,59 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Avatar Financiero &#xb7; Xalapa &#xb7; Registro</title>
-<meta name="description" content="Reg&#xed;strate al taller Avatar Financiero en Xalapa, del 22 al 24 de enero 2027.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../estilos.css">
-<script src="../config.js"></script>
-<script src="../api.js"></script>
-<script src="../reserva.js"></script>
-</head>
-<body><div class="wrap">
- <div id="paso1">
-  <div class="chip oculto" id="chip"></div>
-  <h1>Avatar <span>Financiero</span></h1>
-  <p class="sub">Xalapa, Veracruz &#xb7; 22 al 24 de enero 2027.<br>Reg&#xed;strate y conoce todos los detalles del taller.</p>
-  <form id="f">
-   <label for="nombre">Nombre completo</label><input id="nombre" name="nombre" required maxlength="60" autocomplete="name">
-   <label for="whatsapp">WhatsApp (10 d&#xed;gitos)</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" maxlength="15" required autocomplete="tel">
-   <label for="correo">Correo</label><input id="correo" name="correo" type="email" maxlength="100" required autocomplete="email">
-   <label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" maxlength="60" required>
-   <button class="btn" id="b">Registrarme</button>
-   <div class="err" id="err"></div>
-  </form>
- </div>
- <div id="paso2" class="oculto">
-  <h1>&#xa1;Registro <span>listo!</span></h1>
-  <p class="sub" id="msg">Ya tienes tu lugar en la lista. Consulta la informaci&#xf3;n completa y aparta tu lugar.</p>
-  <a class="btn js-reservar" id="res">Apartar mi lugar por WhatsApp</a>
-  <a class="btn sec" id="ir">Ver informaci&#xf3;n del taller</a>
- </div>
-</div>
-<script>
-const ref = (new URLSearchParams(location.search).get('ref') || '').trim();
-let nomAliado = '';
-if (ref) apiNombreAliado(ref).then(n => {
-  if (!n) return; nomAliado = n;
-  const c = document.getElementById('chip'); c.textContent = 'Te invita: ' + n; c.classList.remove('oculto');
-});
-
-document.getElementById('f').addEventListener('submit', async e => {
-  e.preventDefault();
-  const b = document.getElementById('b'), err = document.getElementById('err');
-  b.disabled = true; b.textContent = 'Registrando...'; err.textContent = '';
-  const datos = Object.fromEntries(new FormData(e.target)); datos.tipo = 'invitado'; datos.ref = ref;
-  const r = await apiPost(datos);
-  if (!r.ok) { err.textContent = r.error; b.disabled = false; b.textContent = 'Registrarme'; return; }
-  if (r.repetido) document.getElementById('msg').textContent = 'Este WhatsApp ya estaba registrado. Puedes consultar la informaci\u00f3n aqu\u00ed.';
-  try { localStorage.setItem('avatar_reg', JSON.stringify({ n: datos.nombre.trim().replace(/\s+/g, ' '), a: nomAliado, r: ref })); } catch (x) {}
-  window.AvatarReserva.aplicar();
-  document.getElementById('ir').href = r.landing || window.AVATAR.landing;
-  document.getElementById('paso1').classList.add('oculto');
-  document.getElementById('paso2').classList.remove('oculto');
-});
-</script>
-</body></html>
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avatar Financiero &#xb7; Xalapa</title>
+<script>location.replace('https://avatar.danteeludier.com/registro/' + location.search + location.hash);</script>
+<meta http-equiv="refresh" content="0; url=https://avatar.danteeludier.com/registro/">
+</head><body style="background:#0A0F1E;color:#fff;font-family:sans-serif;text-align:center;padding:40px">
+<a href="https://avatar.danteeludier.com/registro/" style="color:#F39325">Continuar</a></body></html>
